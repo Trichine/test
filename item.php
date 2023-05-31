@@ -17,10 +17,7 @@
 
 <body>
     <?php
-    include "header.php"
-    ?>
-
-    <?php
+    include "header.php";
     $userAge = 17;
     $userAge = 23;
     $userAge = 55;
@@ -34,18 +31,19 @@
     $isEnabled = true;
     if ($isEnabled == true) { //écrire un boolean//
         echo "Vous êtes autorisé(e) à accéder au site ✅<br>";
-    } elseif ($isEnabled == false) { // peut s'écrire aussi (! $isEnabled) //
+    } elseif ($isEnabled == false) { // peut s'écrire aussi (! $isEnabled) 
         echo "Accès refusé ❌ <br>";
     } else {
         echo "j'ai pas tout compris <br>";
     }
-    ?>
-    <?php
+    
+    include "my-functions.php"; 
+    
     $produits = [
         "hotel Annecy" => array(
             "name" => "le beau Arivage",
-            "price" => "120€",
-            "weight" => "150",
+            "price" => 120,
+            "Poids" => "150",
             "discount" => NULL,
             "picture_url" => "/img/hebergements/annie-spratt-Eg1qcIitAuA-unsplash.jpg",
         ),
@@ -53,39 +51,38 @@
 
         "aeroport roissy charles de gaulle" => array(
             "name" => "IBis",
-            "price" => "70€",
-            "weight" => "120",
+            "price" => 70,
+            "Poids" => "120",
             "discount" => NULL,
             "picture_url" => "/img/hebergements/fred-kleber-gTbaxaVLvsg-unsplash.jpg",
         ),
 
         "Hotel la Canbieer" => array(
             "name" => "la nuit douce",
-            "price" => "29,90€",
-            "weight" => "250",
-            "discount" => "10%",
+            "price" => 29.90,
+            "Poids" => "250",
+            "discount" => 10,
             "picture_url" => "/img/hebergements/febrian-zakaria-sjvU0THccQA-unsplash.jpg",
         ),
     ];
-    ?>
-
-
-<?php
-    foreach ($produits as $produit) {
+   foreach ($produits as $produit) {
 
         foreach ($produit as $key => $value) {
-
-
             if ($key === 'name') {
-
                 echo '<h3>' . $value . '</h3>';
             } elseif ($key === 'price') {
-                echo '<p>' . $value . '</p>';
+                echo '<p> le prix est : ' . $value .' <br> le prix hor taxe est : '. priceExcludingVAT($value)  . '</p>';
+            } elseif ($key === 'Poids') {
+                 echo '<p> Poids : ' . $value . '</p>'; 
+            
+            } elseif ($key === 'discount') {
+                echo '<p> le discount : ' . $value . ' <br> le prix aprés la remise est : '. discountedPrice($produit['price'], $produit['discount'])  ." euro ".'</p>'; 
+
             } elseif ($key === 'picture_url') {
                 echo '<img src ="' .$value. '"alt="'.$produit['name'] .'">';
             }
         }
     }
-    ?>
-    <?php include "footer.php" ?>
+    
+    include "footer.php" ?>
 </body>
